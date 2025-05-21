@@ -34,9 +34,6 @@ styles = {
         "font-weight": "bold",  # Make the headings bold
         "text-transform": "uppercase",  # Convert heading text to uppercase
     },
-    "span.miRNA": {
-        "text-transform": "none",
-    },
     "active": {
         "background-color": "rgba(255, 255, 255, 0.25)",  # Background color for the active heading
     },
