@@ -148,7 +148,7 @@ def base_footer():
             </div>
         </div>
         <div class="footer-2">
-            <p style="font-size: 15px">ChickpeaOmicsExplorer</p>
+            <p style="font-size: 15px">CicerOmicsExplorer</p>
         </div>
     </div>
     """
