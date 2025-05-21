@@ -5,7 +5,7 @@ import pages as pg
 import time
 from pages.security_login import basic_stats, update_visitor_count
 
-pages = ["HOME", "SEARCH", "GENE-INFO","SPATIAL EXPRESSION", "RNA", "miRNA","PPI","LOCALIZATION","GO-KEGG","SNP","ORTHOLOGS", "ABOUT US","Login"]
+pages = ["HOME", "SEARCH", "GENE-INFO","SPATIAL EXPRESSION", "RNA", "miRNA","PPI","LOCALIZATION","GO-KEGG","SNP","ORTHOLOGS", "ABOUT US","LOGIN"]
 logo_path = ("logo.svg")
 #urls = {"MDU": "https://mdu.ac.in/default.aspx"}
 options={"use_padding": False, "show_menu":False}
@@ -179,19 +179,19 @@ else:
         st.toast(f"Total visitors: {st.session_state.visitor_count}")
 
 functions = {
-    "Home": pg.home_page,
-    "Search": pg.search_page,
-    "Gene-Info": pg.gene_info_page,
-    "Spatial-Expression": pg.spatial_info_page,
+    "HOME": pg.home_page,
+    "SEARCH": pg.search_page,
+    "GENE-INFO": pg.gene_info_page,
+    "SPATIAL EXPRESSION": pg.spatial_info_page,
     "RNA": pg.rna_type_page,
     "miRNA": pg.mirna_info_page,
     "PPI": pg.ppi_info_page,
-    "Localization": pg.local_info_page,
+    "LOCALIZATION": pg.local_info_page,
     "GO-KEGG": pg.go_info_page,
     "SNP": pg.snp_info_page,
-    "Orthologs": pg.orthologs_info_page,
-    "About Us": pg.about_page,
-    "Login":pg.login_page
+    "PRTHOLOGS": pg.orthologs_info_page,
+    "ABOUT US": pg.about_page,
+    "LOGIN":pg.login_page
 }
 
 go_to = functions.get(st.session_state.current_page)
