@@ -38,7 +38,7 @@ def snp_info_page():
                     con=st.container(border=True)
                     with con:
                         st.subheader("SNP Calling data")
-                        show_snp_data(mtid_list, is_multi=True)
+                        show_snp_data(tid)
 
             st.toast("Task completed successfully.")
             
@@ -64,7 +64,7 @@ def snp_info_page():
                     con=st.container(border=True)
                     with con:
                         st.subheader("SNP Calling data")
-                        show_snp_data(mtid_list, is_multi=True)
+                        show_snp_data(tid)
             
             st.toast("Task completed successfully.")
             
