@@ -38,10 +38,10 @@ def orthologs_info_page():
                     con=st.container(border=True)
                     with con:
                         st.subheader("Orthologs data")
-                        show_orthologs_data(mtid_list, is_multi=True)
+                        show_orthologs_data(tid)
 
                         st.subheader("\nInparalogs data")
-                        show_inparalogs_data(mtid_list, is_multi=True)
+                        show_inparalogs_data(tid)
 
             st.toast("Task completed successfully.")
             
@@ -70,10 +70,10 @@ def orthologs_info_page():
                     con=st.container(border=True)
                     with con:
                         st.subheader("Orthologs data")
-                        show_orthologs_data(mtid_list, is_multi=True)
+                        show_orthologs_data(tid)
 
                         st.subheader("\nInparalogs data")
-                        show_inparalogs_data(mtid_list, is_multi=True)
+                        show_inparalogs_data(tid)
             
             st.toast("Task completed successfully.")
             
