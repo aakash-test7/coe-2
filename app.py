@@ -59,7 +59,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 st.markdown("""<style>.stApp {padding-top: 6rem !important;}</style>""", unsafe_allow_html=True)
 if "current_page" not in st.session_state:
-    st.session_state.current_page = "Home"  # Default to Home page on first load
+    st.session_state.current_page = "HOME"  # Default to Home page on first load
 page = st_navbar(pages, logo_path=logo_path, styles=styles, options=options)
 
 # Logic for redirecting to login or setting pages
