@@ -8,7 +8,7 @@ from pages.security_login import basic_stats, update_visitor_count
 pages = ["Home", "Search", "Gene-Info","Spatial Expression", "RNA", "miRNA","PPI","Localization","GO-KEGG","SNP","Orthologs", "About Us","Login"]
 logo_path = ("logo.svg")
 #urls = {"MDU": "https://mdu.ac.in/default.aspx"}
-options={"use_padding": False, "show_menu":False}
+options={"use_padding": True, "show_menu":False}
 
 styles = {
     "nav": {
