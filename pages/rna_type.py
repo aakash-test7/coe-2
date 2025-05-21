@@ -38,10 +38,10 @@ def rna_type_page():
                     con=st.container(border=True)
                     with con:
                         st.subheader("RNA data")
-                        show_rna_data(mtid_list, is_multi=True)
+                        show_rna_data(tid)
                         
                         st.subheader("lncRNA data")
-                        show_lncrna_data(mtid_list, is_multi=True)
+                        show_lncrna_data(tid)
 
             st.toast("Task completed successfully.")
             
@@ -70,10 +70,10 @@ def rna_type_page():
                     con=st.container(border=True)
                     with con:
                         st.subheader("RNA data")
-                        show_rna_data(mtid_list, is_multi=True)
+                        show_rna_data(tid)
                         
                         st.subheader("lncRNA data")
-                        show_lncrna_data(mtid_list, is_multi=True)
+                        show_lncrna_data(tid)
             
             st.toast("Task completed successfully.")
             
