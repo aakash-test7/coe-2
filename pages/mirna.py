@@ -38,7 +38,7 @@ def mirna_info_page():
                     con=st.container(border=True)
                     with con:
                         st.subheader("miRNA data")
-                        show_mirna_data(mtid_list, is_multi=True)
+                        show_mirna_data(tid)
 
             st.toast("Task completed successfully.")
             
@@ -64,7 +64,7 @@ def mirna_info_page():
                     con=st.container(border=True)
                     with con:
                         st.subheader("miRNA data")
-                        show_mirna_data(mtid_list, is_multi=True)
+                        show_mirna_data(tid)
             
             st.toast("Task completed successfully.")
             
