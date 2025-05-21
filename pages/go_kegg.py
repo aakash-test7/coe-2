@@ -38,7 +38,7 @@ def go_info_page():
                     con=st.container(border=True)
                     with con:
                         st.subheader("GO and KEGG data")
-                        show_go_kegg_data(mtid_list, is_multi=True)
+                        show_go_kegg_data(tid)
 
             st.toast("Task completed successfully.")
             
@@ -64,7 +64,7 @@ def go_info_page():
                     con=st.container(border=True)
                     with con:
                         st.subheader("GO and KEGG data")
-                        show_go_kegg_data(mtid_list, is_multi=True)
+                        show_go_kegg_data(tid)
             
             st.toast("Task completed successfully.")
             
