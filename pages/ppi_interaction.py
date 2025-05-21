@@ -38,7 +38,7 @@ def ppi_info_page():
                     con=st.container(border=True)
                     with con:
                         st.subheader("Protein and PPI data")
-                        show_protein_ppi_data(mtid_list, is_multi=True)
+                        show_protein_ppi_data(tid)
 
             st.toast("Task completed successfully.")
             
@@ -64,7 +64,7 @@ def ppi_info_page():
                     con=st.container(border=True)
                     with con:
                         st.subheader("Protein and PPI data")
-                        show_protein_ppi_data(mtid_list, is_multi=True)
+                        show_protein_ppi_data(tid)
             
             st.toast("Task completed successfully.")
             
