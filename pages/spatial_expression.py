@@ -38,7 +38,7 @@ def spatial_info_page():
                     con=st.container(border=True)
                     with con:
                         st.subheader("FPKM Matrix Atlas data")
-                        show_fpkm_matrix(mtid_list, is_multi=True)
+                        show_fpkm_matrix(tid)
 
             st.toast("Task completed successfully.")
             
@@ -64,7 +64,7 @@ def spatial_info_page():
                     con=st.container(border=True)
                     with con:
                         st.subheader("FPKM Matrix Atlas data")
-                        show_fpkm_matrix(mtid_list, is_multi=True)
+                        show_fpkm_matrix(tid)
             
             st.toast("Task completed successfully.")
             
