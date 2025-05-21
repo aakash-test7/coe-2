@@ -5,7 +5,7 @@ import pages as pg
 import time
 from pages.security_login import basic_stats, update_visitor_count
 
-pages = ["Home", "Search", "Gene-Info","Spatial Expression", "RNA", "miRNA","PPI","Localization","GO-KEGG","SNP","Orthologs", "About Us","Login"]
+pages = ["HOME", "SEARCH", "GENE-INFO", "SPATIAL EXPRESSION", "RNA", "miRNA", "PPI", "LOCALIZATION", "GO-KEGG", "SNP", "ORTHOLOGS", "ABOUT US", "LOGIN"]
 logo_path = ("logo.svg")
 #urls = {"MDU": "https://mdu.ac.in/default.aspx"}
 options={"use_padding": True, "show_menu":False}
@@ -23,7 +23,7 @@ styles = {
     },
     "div": {
         "width": "100%",
-        "max-width": "None",  # Limit the maximum width of the navigation bar content
+        "max-width": "none",  # Limit the maximum width of the navigation bar content
     },
     "span": {
         "border-radius": "0.5rem",  # Rounded corners for the headings
@@ -32,7 +32,6 @@ styles = {
         "padding": "0.4375rem 0.625rem",  # Padding inside each heading
         "font-size": "1.1rem",  # Increase the font size of the headings
         "font-weight": "bold",  # Make the headings bold
-        "text-transform": "uppercase",  # Convert heading text to uppercase
     },
     "active": {
         "background-color": "rgba(255, 255, 255, 0.25)",  # Background color for the active heading
@@ -61,14 +60,14 @@ st.markdown("""
 st.markdown("""<style>.stApp {padding-top: 6rem !important;}</style>""", unsafe_allow_html=True)
 if "current_page" not in st.session_state:
     st.session_state.current_page = "HOME"  # Default to Home page on first load
-page = st_navbar(pages, logo_path=logo_path, styles=styles, options=options)
+page = st_navbar(pages, logo_path=logo_path, styles=styles, options=options,logo_page="HOME")
 
 # Logic for redirecting to login or setting pages
 if st.session_state.get("redirect_to_login", False):
-    st.session_state.current_page = "Login"  # Redirect to Login page
+    st.session_state.current_page = "LOGIN"  # Redirect to Login page
 elif st.session_state.get("redirected_to_login", True) is False:
     if "first_time" not in st.session_state or st.session_state.first_time:  # Check if it's the first time
-        st.session_state.current_page = "Search"  # First-time visit after redirect should go to Search page
+        st.session_state.current_page = "SEARCH"  # First-time visit after redirect should go to Search page
         st.session_state.first_time = False  # Set first_time to False after first visit
 else:
     # Set the current page to the selected page from the navbar
@@ -180,19 +179,19 @@ else:
         st.toast(f"Total visitors: {st.session_state.visitor_count}")
 
 functions = {
-    "Home": pg.home_page,
-    "Search": pg.search_page,
-    "Gene-Info": pg.gene_info_page,
-    "Spatial Expression": pg.spatial_info_page,
+    "HOME": pg.home_page,
+    "SEARCH": pg.search_page,
+    "GENE-INFO": pg.gene_info_page,
+    "SPATIAL EXPRESSION": pg.spatial_info_page,
     "RNA": pg.rna_type_page,
     "miRNA": pg.mirna_info_page,
     "PPI": pg.ppi_info_page,
-    "Localization": pg.local_info_page,
+    "LOCALIZATION": pg.local_info_page,
     "GO-KEGG": pg.go_info_page,
     "SNP": pg.snp_info_page,
-    "Orthologs": pg.orthologs_info_page,
-    "About Us": pg.about_page,
-    "Login":pg.login_page
+    "ORTHOLOGS": pg.orthologs_info_page,
+    "ABOUT US": pg.about_page,
+    "LOGIN": pg.login_page
 }
 
 go_to = functions.get(st.session_state.current_page)
