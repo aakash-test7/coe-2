@@ -5,10 +5,10 @@ import pages as pg
 import time
 from pages.security_login import basic_stats, update_visitor_count
 
-pages = ["Home", "Search", "Gene-Info","Spatial-Expression", "RNA", "miRNA","PPI","Localization","GO-KEGG","SNP","Orthologs", "About Us", "MDU","Login"]
+pages = ["HOME", "SEARCH", "GENE-INFO","SPATIAL EXPRESSION", "RNA", "miRNA","PPI","LOCALIZATION","GO-KEGG","SNP","ORTHOLOGS", "ABOUT US","Login"]
 logo_path = ("logo.svg")
-urls = {"MDU": "https://mdu.ac.in/default.aspx"}
-options={"use_padding": True, "show_menu":False}
+#urls = {"MDU": "https://mdu.ac.in/default.aspx"}
+options={"use_padding": False, "show_menu":False}
 
 styles = {
     "nav": {
@@ -32,7 +32,6 @@ styles = {
         "padding": "0.4375rem 0.625rem",  # Padding inside each heading
         "font-size": "1.1rem",  # Increase the font size of the headings
         "font-weight": "bold",  # Make the headings bold
-        "text-transform": "uppercase",  # Convert heading text to uppercase
     },
     "active": {
         "background-color": "rgba(255, 255, 255, 0.25)",  # Background color for the active heading
