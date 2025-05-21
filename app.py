@@ -5,7 +5,7 @@ import pages as pg
 import time
 from pages.security_login import basic_stats, update_visitor_count
 
-pages = ["HOME", "SEARCH", "GENE-INFO","SPATIAL EXPRESSION", "RNA", "miRNA","PPI","LOCALIZATION","GO-KEGG","SNP","ORTHOLOGS", "ABOUT US","LOGIN"]
+pages = ["Home", "Search", "Gene-Info","Spatial Expression", "RNA", "miRNA","PPI","Localization","GO-KEGG","SNP","Orthologs", "About Us","Login"]
 logo_path = ("logo.svg")
 #urls = {"MDU": "https://mdu.ac.in/default.aspx"}
 options={"use_padding": False, "show_menu":False}
@@ -32,6 +32,10 @@ styles = {
         "padding": "0.4375rem 0.625rem",  # Padding inside each heading
         "font-size": "1.1rem",  # Increase the font size of the headings
         "font-weight": "bold",  # Make the headings bold
+        "text-transform": "uppercase",  # Convert heading text to uppercase
+    },
+    "miRNA": {
+        "text-transform": "none",  # Override only for miRNA
     },
     "active": {
         "background-color": "rgba(255, 255, 255, 0.25)",  # Background color for the active heading
@@ -179,19 +183,19 @@ else:
         st.toast(f"Total visitors: {st.session_state.visitor_count}")
 
 functions = {
-    "HOME": pg.home_page,
-    "SEARCH": pg.search_page,
-    "GENE-INFO": pg.gene_info_page,
-    "SPATIAL EXPRESSION": pg.spatial_info_page,
+    "Home": pg.home_page,
+    "Search": pg.search_page,
+    "Gene-Info": pg.gene_info_page,
+    "Spatial Expression": pg.spatial_info_page,
     "RNA": pg.rna_type_page,
     "miRNA": pg.mirna_info_page,
     "PPI": pg.ppi_info_page,
-    "LOCALIZATION": pg.local_info_page,
+    "Localization": pg.local_info_page,
     "GO-KEGG": pg.go_info_page,
     "SNP": pg.snp_info_page,
-    "PRTHOLOGS": pg.orthologs_info_page,
-    "ABOUT US": pg.about_page,
-    "LOGIN":pg.login_page
+    "Orthologs": pg.orthologs_info_page,
+    "About Us": pg.about_page,
+    "Login":pg.login_page
 }
 
 go_to = functions.get(st.session_state.current_page)
