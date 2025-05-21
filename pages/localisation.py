@@ -38,7 +38,7 @@ def local_info_page():
                     con=st.container(border=True)
                     with con:
                         st.subheader("Cellular Localisation data")
-                        show_cellular_localisation(mtid_list, is_multi=True)
+                        show_cellular_localisation(tid)
 
             st.toast("Task completed successfully.")
             
@@ -64,7 +64,7 @@ def local_info_page():
                     con=st.container(border=True)
                     with con:
                         st.subheader("Cellular Localisation data")
-                        show_cellular_localisation(mtid_list, is_multi=True)
+                        show_cellular_localisation(tid)
             
             st.toast("Task completed successfully.")
             
