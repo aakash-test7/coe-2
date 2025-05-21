@@ -2,6 +2,7 @@ import streamlit as st
 from pages.footer_all import base_footer 
 from pages.gallery import gallery_html
 
+@st.cache_data
 def home_page():
     #main 
     st.markdown("""<style>.stVerticalBlock.st-key-rest1container,.stVerticalBlock.st-key-rest3container { background-color: #f4f4f9; padding: 30px; border-radius: 15px;}</style>""", unsafe_allow_html=True)
