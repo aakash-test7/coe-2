@@ -21,6 +21,10 @@ styles = {
         "overflow-x": "auto",  # Enable horizontal scrolling if the content overflows
         "white-space": "nowrap",  # Prevent items from wrapping to a new line
     },
+    "div": {
+        "width": "100%",
+        "max-width": "None",  # Limit the maximum width of the navigation bar content
+    },
     "span": {
         "border-radius": "0.5rem",  # Rounded corners for the headings
         "color": "rgb(49, 51, 63)",  # Text color of the headings
