@@ -41,7 +41,7 @@ def gene_info_page():
                         show_sequence_data(tid)
 
                         st.subheader("BioChemical Properties")
-                        show_biochemical_properties(mtid_list, is_multi=True)
+                        show_biochemical_properties(tid)
 
             st.toast("Task completed successfully.")
             
@@ -73,7 +73,7 @@ def gene_info_page():
                         show_sequence_data(tid)
 
                         st.subheader("BioChemical Properties")
-                        show_biochemical_properties(mtid_list, is_multi=True)
+                        show_biochemical_properties(tid)
             
             st.toast("Task completed successfully.")
             
