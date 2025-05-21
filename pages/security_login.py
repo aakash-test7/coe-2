@@ -132,7 +132,7 @@ def update_visitor_count():
     conn4 = connect_to_db()
     cursor4 = conn4.cursor()
     if st.session_state.get("first_access",False):
-        if st.session_state.current_page !="Home":
+        if st.session_state.current_page !="HOME":
             query = "INSERT INTO Visitor (Timestamp) VALUES (NOW())"
             cursor4.execute(query)
             conn4.commit()
