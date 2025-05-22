@@ -5,7 +5,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import Select
-from webdriver_manager.chrome import ChromeDriverManager
+#from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 from bs4 import BeautifulSoup
 import base64
@@ -92,45 +92,41 @@ def get_string_network_link(protein_transcript):
     else:
         return f"Error: {response.status_code}"
 # Add these at the top with other data loading operations
-@st.cache_data(ttl=3600)  # Cache for 1 hour
-def load_orthologs_data():
-    """Load the complete orthologs data at startup."""
-    bucket = client.bucket(bucket_name)
-    blob_name = "Data/14.txt"
-    blob = bucket.blob(blob_name)
-    
-    orthologs_data = []
-    
-    with blob.open("r") as infile:
-        for line in infile:
-            columns = line.strip().split()
-            if len(columns) >= 3:
-                species_a, species_b, score = columns[0], columns[1], columns[2]
-                orthologs_data.append((species_a, species_b, score))
-    
-    return pd.DataFrame(orthologs_data, columns=["Species A", "Species B", "Score"])
+def read_orthologs_from_gcs(bucket_name, blob_name):
+    try:
+        bucket = client.bucket(bucket_name)
+        blob = bucket.blob(blob_name)
+        orthologs_data = []
+        with blob.open("r") as infile:
+            for line in infile:
+                columns = line.strip().split()
+                if len(columns) >= 3:
+                    species_a, species_b, score = columns[0], columns[1], columns[2]
+                    orthologs_data.append((species_a, species_b, score))
+        return pd.DataFrame(orthologs_data, columns=["Species A", "Species B", "Score"])
+    except Exception as e:
+        print(f"Error loading orthologs data: {e}")
+        return None
 
-@st.cache_data(ttl=3600)  # Cache for 1 hour
-def load_paralogs_data():
-    """Load the complete paralogs data at startup."""
-    bucket = client.bucket(bucket_name)
-    blob_name = "Data/15.txt"
-    blob = bucket.blob(blob_name)
-    
-    paralogs_data = []
-    
-    with blob.open("r") as infile:
-        for line in infile:
-            columns = line.strip().split()
-            if len(columns) >= 3:
-                species_a, species_b, score = columns[0], columns[1], columns[2]
-                paralogs_data.append((species_a, species_b, score))
-    
-    return pd.DataFrame(paralogs_data, columns=["Species A", "Species B", "Score"])
+def read_paralogs_from_gcs(bucket_name, blob_name):
+    try:
+        bucket = client.bucket(bucket_name)
+        blob = bucket.blob(blob_name)
+        paralogs_data = []
+        with blob.open("r") as infile:
+            for line in infile:
+                columns = line.strip().split()
+                if len(columns) >= 3:
+                    species_a, species_b, score = columns[0], columns[1], columns[2]
+                    paralogs_data.append((species_a, species_b, score))
+        return pd.DataFrame(paralogs_data, columns=["Species A", "Species B", "Score"])
+    except Exception as e:
+        print(f"Error loading paralogs data: {e}")
+        return None
 
 # Load data at startup
-orthologs_df = load_orthologs_data()
-paralogs_df = load_paralogs_data()
+orthologs_df = read_orthologs_from_gcs(bucket_name, "Data/14.txt")
+paralogs_df = read_paralogs_from_gcs(bucket_name, "Data/15.txt")
 
 def web_driver():
     options = webdriver.ChromeOptions()
@@ -140,8 +136,8 @@ def web_driver():
     options.add_argument('--disable-gpu')
     options.add_argument("--window-size=1920, 1200")
     options.add_argument('--disable-dev-shm-usage')
-    #driver = webdriver.Chrome(options=options)
-    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=options)
+    driver = webdriver.Chrome(options=options)
+    #driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()),options=options)
     return driver
 
 def automate_Cultivated_task(tid):
