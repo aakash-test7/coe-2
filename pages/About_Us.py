@@ -15,7 +15,7 @@ def display_about_content():
     col1, col2 = st.columns(2)
     
     # Container 1
-    st.markdown("""<style>.stVerticalBlock.st-key-au1 {background-color: rgb(185,214,148); color: white; padding: 20px; border-radius: 10px; transition: all 0.3s ease-in-out;} .stVerticalBlock.st-key-au1:hover {background-color: rgba(242,240,239,0.5); color: black; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); transform: translateY(-2px);} </style>""", unsafe_allow_html=True)
+    st.markdown("""<style>.stVerticalBlock.st-key-au2, .stVerticalBlock.st-key-au1, .stVerticalBlock.st-key-au3, .stVerticalBlock.st-key-au4, .stVerticalBlock.st-key-au5, .stVerticalBlock.st-key-au6 {background-color: rgb(185, 214, 148); color: white; padding: 20px; border-radius: 10px; transition: all 0.3s ease-in-out;} .stVerticalBlock.st-key-au2:hover, .stVerticalBlock.st-key-au1:hover, .stVerticalBlock.st-key-au3:hover, .stVerticalBlock.st-key-au4:hover, .stVerticalBlock.st-key-au5:hover, .stVerticalBlock.st-key-au6:hover {background-color: rgba(242,240,239,0.5); color: black; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); transform: translateY(-2px);}</style>""", unsafe_allow_html=True)
     con = col1.container(border=False, key="au1")
     with con:
         c1, c2 = st.columns([7,13])
@@ -24,7 +24,6 @@ def display_about_content():
         c2.write("Hello")
     
     # Container 2
-    st.markdown("""<style>.stVerticalBlock.st-key-au2 {background-color: rgb(185, 214, 148); color: white; padding: 20px; border-radius: 10px; transition: all 0.3s ease-in-out;} .stVerticalBlock.st-key-au2:hover {background-color: rgba(242,240,239,0.5); color: black; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); transform: translateY(-2px);} </style>""", unsafe_allow_html=True)
     con = col2.container(border=False, key="au2")
     with con:
         c1, c2 = st.columns([7,13])
@@ -33,7 +32,6 @@ def display_about_content():
         c2.write("Hello")
 
     # Container 3
-    st.markdown("""<style>.stVerticalBlock.st-key-au3 {background-color: rgb(185, 214, 148); color: white; padding: 20px; border-radius: 10px; transition: all 0.3s ease-in-out;} .stVerticalBlock.st-key-au3:hover {background-color: rgba(242,240,239,0.5); color: black; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); transform: translateY(-2px);} </style>""", unsafe_allow_html=True)
     con = col1.container(border=False, key="au3")
     with con:
         c1, c2 = st.columns([7,13])
@@ -42,7 +40,6 @@ def display_about_content():
         c2.write("Hello")
     
     # Container 4
-    st.markdown("""<style>.stVerticalBlock.st-key-au4 {background-color: rgb(185, 214, 148); color: white; padding: 20px; border-radius: 10px; transition: all 0.3s ease-in-out;} .stVerticalBlock.st-key-au4:hover {background-color: rgba(242,240,239,0.5); color: black; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); transform: translateY(-2px);} </style>""", unsafe_allow_html=True)
     con = col2.container(border=False, key="au4")
     with con:
         c1, c2 = st.columns([7,13])
@@ -51,7 +48,6 @@ def display_about_content():
         c2.write("Hello")
 
     # Container 5
-    st.markdown("""<style>.stVerticalBlock.st-key-au5 {background-color: rgb(185, 214, 148); color: white; padding: 20px; border-radius: 10px; transition: all 0.3s ease-in-out;} .stVerticalBlock.st-key-au5:hover {background-color: rgba(242,240,239,0.5); color: black; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); transform: translateY(-2px);} </style>""", unsafe_allow_html=True)
     con = col1.container(border=False, key="au5")
     with con:
         c1, c2 = st.columns([7,13])
@@ -60,7 +56,6 @@ def display_about_content():
         c2.write("Hello")
     
     # Container 6
-    st.markdown("""<style>.stVerticalBlock.st-key-au6 {background-color: rgb(185, 214, 148); color: white; padding: 20px; border-radius: 10px; transition: all 0.3s ease-in-out;} .stVerticalBlock.st-key-au6:hover {background-color: rgba(242,240,239,0.5); color: black; box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); transform: translateY(-2px);} </style>""", unsafe_allow_html=True)
     con = col2.container(border=False, key="au6")
     with con:
         c1, c2 = st.columns([7,13])
@@ -76,6 +71,7 @@ def about_page():
         st.session_state.active_tab = tab_name
     
     # Create columns for buttons
+    st.write(" ")
     col1, col2, col3, col4, col5 = st.columns(5)
     if col1.button("ABOUT-US", key="btn_about",use_container_width=True):
         set_active_tab('ABOUT-US')
