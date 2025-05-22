@@ -41,22 +41,6 @@ styles = {
     },
 }
 
-# Inject custom CSS for mobile responsiveness
-st.markdown("""
-    <style>
-        /* Mobile responsiveness */
-        @media (max-width: 900px) {
-            .stNavBar-nav {
-                overflow-x: scroll;  /* Enable scrolling on smaller screens */
-                flex-wrap: nowrap;    /* Prevent wrapping of items */
-                padding: 0.5rem;      /* Adjust padding for mobile */
-            }
-            .stNavBar-span {
-                font-size: 0.9rem;      /* Slightly reduce font size for mobile */
-            }
-        }
-    </style>
-""", unsafe_allow_html=True)
 #st.markdown("""<style>.stApp {padding-top: 6rem !important;}</style>""", unsafe_allow_html=True)
 if "current_page" not in st.session_state:
     st.session_state.current_page = "HOME"  # Default to Home page on first load
@@ -73,39 +57,6 @@ else:
     # Set the current page to the selected page from the navbar
     if page != st.session_state.current_page:
         st.session_state.current_page = page
-
-#st.sidebar.markdown("---")  # Adds a separator
-st.markdown(
-    """
-    <style>
-        .sidebar-button, .stButton>button {
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            color: black;
-            background-color: #C3D8A1; /* Green */
-            border: 2px solid #9CAD81;
-            border-radius: 15px;
-            cursor: pointer;
-            margin-bottom: 5px;
-            text-align: center;
-            display: block;
-            text-decoration: none;
-            transition: all 0.3 ease;
-        }
-
-        .sidebar-button:hover, .stButton>button:hover {
-            background-color: rgb(255, 119, 75);
-            border-color: #2d2d2d;
-        }
-
-        .stButton>button:hover p {
-            color: black !important; /* Keep text visible */
-        }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
 
 external_links = {
     "NCBI": "https://www.ncbi.nlm.nih.gov/",
@@ -127,6 +78,7 @@ for name, link in external_links.items():
 f'<a href="{link}" target="_blank" class="sidebar-button" style="text-decoration: none; background-color: rgb(255, 119, 75); color: black;" onmouseover="this.style.textDecoration=\'none\'; this.style.color=\'black\';" onmouseout="this.style.textDecoration=\'none\'; this.style.color=\'black\';">{name}</a>',
         unsafe_allow_html=True)
     
+
 #visitor
 if 'first_access' not in st.session_state:
     st.session_state.first_access = True
@@ -178,6 +130,48 @@ else:
         visitor_placeholder.metric(value=st.session_state.visitor_count, label="Total Visitors", border=True)
         st.toast(f"Total visitors: {st.session_state.visitor_count}")
 
+#st.sidebar.markdown("---")  # Adds a separator
+st.markdown(
+    """
+    <style>
+        @media (max-width: 900px) {
+            .stNavBar-nav {
+                overflow-x: scroll;  /* Enable scrolling on smaller screens */
+                flex-wrap: nowrap;    /* Prevent wrapping of items */
+                padding: 0.5rem;      /* Adjust padding for mobile */
+            }
+            .stNavBar-span {
+                font-size: 0.9rem;      /* Slightly reduce font size for mobile */
+            }
+        }
+        .sidebar-button, .stButton>button {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            color: black;
+            background-color: #C3D8A1; /* Green */
+            border: 2px solid #9CAD81;
+            border-radius: 15px;
+            cursor: pointer;
+            margin-bottom: 5px;
+            text-align: center;
+            display: block;
+            text-decoration: none;
+            transition: all 0.3 ease;
+        }
+
+        .sidebar-button:hover, .stButton>button:hover {
+            background-color: rgb(255, 119, 75);
+            border-color: #2d2d2d;
+        }
+
+        .stButton>button:hover p {
+            color: black !important; /* Keep text visible */
+        }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
 functions = {
     "HOME": pg.home_page,
     "SEARCH": pg.search_page,
