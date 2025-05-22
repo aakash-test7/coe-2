@@ -502,9 +502,9 @@ def show_rna_data(tid, is_multi=False):
         matching_row = df[df['Transcript id'] == tid]
         if not matching_row.empty:
             if pd.notna(matching_row['mRNA'].values[0]):
-                st.write("mRNA present : Yes ( 1 )\n")
+                st.success("mRNA present : Yes ( 1 )\n")
             else:
-                st.write("mRNA absent : No ( 0 )\n")
+                st.error("mRNA absent : No ( 0 )\n")
             return True
         else:
             st.write(f"No match found for Gene id: {tid} in RNA data\n")
@@ -514,9 +514,9 @@ def show_rna_data(tid, is_multi=False):
             matching_row = df[df['Transcript id'] == t_id]
             if not matching_row.empty:
                 if pd.notna(matching_row['mRNA'].values[0]):
-                    st.write(f"{t_id} mRNA present : Yes ( 1 )\n")
+                    st.success(f"{t_id} mRNA present : Yes ( 1 )\n")
                 else:
-                    st.write(f"{t_id} mRNA absent : No ( 0 )\n")
+                    st.error(f"{t_id} mRNA absent : No ( 0 )\n")
             else:
                 st.write(f"No match found for Gene id: {t_id} in RNA data\n")
         return True
@@ -527,9 +527,9 @@ def show_lncrna_data(tid, is_multi=False):
         matching_row = df[df['Transcript id'] == tid]
         if not matching_row.empty:
             if pd.notna(matching_row['lncRNA'].values[0]):
-                st.write("lncRNAs present : Yes ( 1 )")
+                st.success("lncRNAs present : Yes ( 1 )")
             else:
-                st.write("lncRNAs absent : No ( 0 )\n")
+                st.error("lncRNAs absent : No ( 0 )\n")
             return True
         else:
             st.write(f"No match found for Gene id: {tid} in lncRNA data\n")
@@ -539,9 +539,9 @@ def show_lncrna_data(tid, is_multi=False):
             matching_row = df[df['Transcript id'] == t_id]
             if not matching_row.empty:
                 if pd.notna(matching_row['lncRNA'].values[0]):
-                    st.write(f"{t_id} lncRNAs present : Yes ( 1 )\n")
+                    st.success(f"{t_id} lncRNAs present : Yes ( 1 )\n")
                 else:
-                    st.write(f"{t_id} lncRNAs absent : No ( 0 )\n")
+                    st.error(f"{t_id} lncRNAs absent : No ( 0 )\n")
             else:
                 st.write(f"No match found for Gene id: {t_id} in lncRNA data\n")
         return True
