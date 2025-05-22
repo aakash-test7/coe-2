@@ -1,8 +1,9 @@
 import streamlit as st
+from pages.footer_all import base_footer 
+from pages.gallery import gallery_html
 
-@st.cache_data
 def home_page():
-    st.markdown("""<style>.stVerticalBlock.st-key-rest1container,.stVerticalBlock.st-key-rest3container { background-color: #f4f4f9; padding: 30px; border-radius: 15px;}</style>""", unsafe_allow_html=True)
+    st.markdown("""<style>.stVerticalBlock.st-key-con2hp, .stVerticalBlock.st-key-con31hp, .stVerticalBlock.st-key-con32hp, .stVerticalBlock.st-key-con11hp, .stVerticalBlock.st-key-con12hp {background-color: rgba(255,119,75,1); padding: 20px; border-radius: 10px; transition: all 0.3s ease-in-out;} .stVerticalBlock.st-key-con2hp:hover, .stVerticalBlock.st-key-con31hp:hover, .stVerticalBlock.st-key-con32hp:hover, .stVerticalBlock.st-key-con11hp:hover, .stVerticalBlock.st-key-con12hp:hover {background-color: rgba(255,119,75,0.5); box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); transform: translateY(-2px);} .stVerticalBlock.st-key-rest1container, .stVerticalBlock.st-key-rest3container {background-color: #f4f4f9; padding: 30px; border-radius: 15px;}</style>""", unsafe_allow_html=True)
     #st.markdown("""<style>.block-container {padding-top: 6rem;padding-bottom: 2rem;padding-left: 1rem;padding-right: 1rem;}</style>""", unsafe_allow_html=True)
     st.markdown(''
     '<style>'
@@ -98,8 +99,6 @@ def home_page():
             st.write(".")
 
         con=st.container(border=True)
-        from pages.footer_all import base_footer 
-        from pages.gallery import gallery_html
         with con:
             gallery_html()
 
@@ -134,8 +133,6 @@ def home_page():
             st.write(".")
 
     base_footer()
-
-    st.markdown("""<style>.stVerticalBlock.st-key-con2hp, .stVerticalBlock.st-key-con31hp, .stVerticalBlock.st-key-con32hp, .stVerticalBlock.st-key-con11hp, .stVerticalBlock.st-key-con12hp {background-color: rgba(255,119,75,1); padding: 20px; border-radius: 10px; transition: all 0.3s ease-in-out;} .stVerticalBlock.st-key-con2hp:hover, .stVerticalBlock.st-key-con31hp:hover, .stVerticalBlock.st-key-con32hp:hover, .stVerticalBlock.st-key-con11hp:hover, .stVerticalBlock.st-key-con12hp:hover {background-color: rgba(255,119,75,0.5); box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); transform: translateY(-2px);}</style>""", unsafe_allow_html=True)
 
 if __name__ == "__main__":
     home_page()
