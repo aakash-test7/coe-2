@@ -2,11 +2,9 @@ import streamlit as st
 from pages.footer_all import base_footer 
 from pages.gallery import gallery_html
 
-@st.cache_data
-def top_part():
-    # Style for the top part of the page
+def home_page():
     st.markdown("""<style>.stVerticalBlock.st-key-rest1container,.stVerticalBlock.st-key-rest3container { background-color: #f4f4f9; padding: 30px; border-radius: 15px;}</style>""", unsafe_allow_html=True)
-
+    #st.markdown("""<style>.block-container {padding-top: 6rem;padding-bottom: 2rem;padding-left: 1rem;padding-right: 1rem;}</style>""", unsafe_allow_html=True)
     st.markdown(''
     '<style>'
     '    /* General Styles */'
@@ -78,10 +76,6 @@ def top_part():
     '  </div>'
     '</div>'
     '', unsafe_allow_html=True)
-
-def home_page():
-    # Cache only the top part
-    top_part()
 
     #sub1
     con=st.container(border=False, key="rest1container")
