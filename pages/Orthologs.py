@@ -1,5 +1,5 @@
 import streamlit as st
-from backend import process_locid, process_mlocid, df, show_orthologs_data, show_inparalogs_data
+from backend import process_locid, process_mlocid, df, show_orthologs_data, show_inparalogs_data, mlocid_error
 from pages.footer_all import base_footer
 
 def orthologs_info_page():
@@ -76,18 +76,13 @@ def orthologs_info_page():
             st.toast("Task completed successfully.")
 
         elif mlocid:
-            mtid = process_mlocid(mlocid)
-            mtid_list = [x.strip() for x in mtid.replace(",", " ").split()]
-            mtid_list.sort()
-
-            if not mtid_list:
-                st.error("Could not retrieve any transcript IDs from the provided NCBI IDs.")
-            else:
+            available, rejected = mlocid_error(mlocid)
+            if available:
+                mtid = process_mlocid(",".join(available))
+                mtid_list = [x.strip() for x in mtid.replace(",", " ").split()]
+                mtid_list.sort()
                 if 'Transcript id' in df.columns and 'lncRNA' in df.columns:
                     matching_rows = df[df['Transcript id'].isin(mtid_list)]
-                    found_ids = matching_rows['Transcript id'].unique().tolist()
-                    not_found_ids = [x for x in mtid_list if x not in found_ids]
-
                     if not matching_rows.empty:
                         con = st.container(border=True)
                         with con:
@@ -95,11 +90,10 @@ def orthologs_info_page():
                             show_orthologs_data(mtid_list, is_multi=True)
                             st.subheader("Inparalog data")
                             show_inparalogs_data(mtid_list, is_multi=True)
+                st.toast("Task completed successfully.")
 
-                    if not_found_ids:
-                        st.error(f"No matches found for NCBI IDs: {', '.join(not_found_ids)}")
-
-            st.toast("Task completed successfully.")
+            if rejected:
+                st.error(f"No matches found for NCBI IDs: {', '.join(rejected)}")
 
         else:
             st.warning("Need either a Gene ID or NCBI ID to proceed.")
