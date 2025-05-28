@@ -970,3 +970,19 @@ def tsi_plot():
 
 def img_to_base64(image_data):
     return base64.b64encode(image_data).decode()
+
+def mlocid_error(mlocid):
+            mlocid_list = [item.strip() for item in mlocid.replace(",", " ").split()]
+            mlocid_list = list(set(mlocid_list))
+            
+            available = []
+            rejected = []
+            
+            for locid in mlocid_list:
+                transcript_id = process_locid(locid)
+                
+                if transcript_id:
+                    available.append(locid)
+                else:
+                    rejected.append(locid)
+            return available, rejected
