@@ -1,5 +1,5 @@
 import streamlit as st
-from backend import process_locid, process_mlocid,df, show_protein_ppi_data
+from backend import process_locid, process_mlocid, df, show_protein_ppi_data
 from pages.footer_all import base_footer
 
 def ppi_info_page():
@@ -25,8 +25,8 @@ def ppi_info_page():
             mlocid_list = list(set(mlocid_list))
             mlocid = ",".join(mlocid_list)
 
-    con1, con2, con3 = st.columns([2, 2, 2])
-    with con2:
+    cc1, cc2, cc3 = st.columns([2, 2, 2])
+    with cc2:
         start_button = st.button("Search", use_container_width=True, key="ppi_Searchbutton1")
 
     if start_button:
@@ -35,24 +35,31 @@ def ppi_info_page():
                 matching_row = df[df['Transcript id'] == tid]
 
                 if not matching_row.empty:
-                    con=st.container(border=True)
+                    con = st.container(border=True)
                     with con:
                         st.subheader("Protein and PPI data")
                         show_protein_ppi_data(tid)
+                else:
+                    st.error(f"No match found for Gene ID: {tid}")
 
             st.toast("Task completed successfully.")
             
         elif mtid:
-            mtid_list = [tid.strip() for tid in mtid.replace(",", " ").split()]
+            mtid_list = [x.strip() for x in mtid.replace(",", " ").split()]
             mtid_list.sort()
             if 'Transcript id' in df.columns and 'lncRNA' in df.columns:
                 matching_rows = df[df['Transcript id'].isin(mtid_list)]
+                found_ids = matching_rows['Transcript id'].unique().tolist()
+                not_found_ids = [x for x in mtid_list if x not in found_ids]
+
                 if not matching_rows.empty:
-                    con=st.container(border=True)
+                    con = st.container(border=True)
                     with con:
                         st.subheader("Protein and PPI data")
                         show_protein_ppi_data(mtid_list, is_multi=True)
 
+                if not_found_ids:
+                    st.error(f"No matches found for Gene IDs: {', '.join(not_found_ids)}")
             st.toast("Task completed successfully.")
             
         elif locid:
@@ -61,24 +68,35 @@ def ppi_info_page():
                 matching_row = df[df['Transcript id'] == tid]
 
                 if not matching_row.empty:
-                    con=st.container(border=True)
+                    con = st.container(border=True)
                     with con:
                         st.subheader("Protein and PPI data")
                         show_protein_ppi_data(tid)
+                else:
+                    st.error(f"No match found for NCBI ID: {locid}")
             
             st.toast("Task completed successfully.")
             
         elif mlocid:
             mtid = process_mlocid(mlocid)
-            mtid_list = [tid.strip() for tid in mtid.replace(",", " ").split()]
+            mtid_list = [x.strip() for x in mtid.replace(",", " ").split()]
             mtid_list.sort()
-            if 'Transcript id' in df.columns and 'lncRNA' in df.columns:
-                matching_rows = df[df['Transcript id'].isin(mtid_list)]
-                if not matching_rows.empty:
-                    con=st.container(border=True)
-                    with con:
-                        st.subheader("Protein and PPI data")
-                        show_protein_ppi_data(mtid_list, is_multi=True)
+            if not mtid_list:
+                st.error("Could not retrieve any transcript IDs from the provided NCBI IDs.")
+            else:
+                if 'Transcript id' in df.columns and 'lncRNA' in df.columns:
+                    matching_rows = df[df['Transcript id'].isin(mtid_list)]
+                    found_ids = matching_rows['Transcript id'].unique().tolist()
+                    not_found_ids = [x for x in mtid_list if x not in found_ids]
+
+                    if not matching_rows.empty:
+                        con = st.container(border=True)
+                        with con:
+                            st.subheader("Protein and PPI data")
+                            show_protein_ppi_data(mtid_list, is_multi=True)
+
+                    if not_found_ids:
+                        st.error(f"No matches found for NCBI IDs: {', '.join(not_found_ids)}")
             st.toast("Task completed successfully.")
             
         else:
