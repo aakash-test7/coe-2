@@ -685,9 +685,9 @@ def transcriptid_info(tid):
                 st.subheader("Inparalogs data")
                 show_inparalogs_data(tid)
         else:
-            st.write("Gene ID not found\n")
+            st.error("Gene ID not found\n")
     else:
-        st.write("...Error...\n")
+        st.error("...Error...\n")
     return
 
 def multi_transcriptid_info(mtid):
@@ -750,9 +750,9 @@ def multi_transcriptid_info(mtid):
                 show_inparalogs_data(mtid_list, is_multi=True)
 
         else:
-            st.write("Gene ID not found\n")
+            st.error("Gene ID not found\n")
     else:
-        st.write("...Error...\n")
+        st.error("...Error...\n")
     return
 
 glossary_first={
