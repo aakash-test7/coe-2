@@ -979,10 +979,18 @@ def mlocid_error(mlocid):
             rejected = []
             
             for locid in mlocid_list:
-                transcript_id = process_locid(locid)
+                transcript_id = process_locid2(locid)
                 
                 if transcript_id:
                     available.append(locid)
                 else:
                     rejected.append(locid)
             return available, rejected
+
+def process_locid2(locid):
+    result = protein_df[protein_df['preferredName'] == locid]
+    if not result.empty:
+        result = result.iloc[0]['Transcript id']
+        return result
+    else:
+        return None
