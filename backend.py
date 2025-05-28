@@ -315,8 +315,7 @@ def show_biochemical_properties(tid, is_multi=False):
                 if 'Status' in temp_result.columns:
                     temp_result = temp_result.drop(columns=["Status"])
                 result = pd.concat([result, temp_result], ignore_index=True)
-            else:
-                st.write(f"No match found for Gene id: {t_id} in BioChemical Properties data\n")
+            # Removed separate 'else' message for each TID
         if not result.empty:
             result = result.drop_duplicates(subset=['Transcript id'])
             st.dataframe(result)
@@ -348,8 +347,6 @@ def show_protein_ppi_data(tid, is_multi=False):
             protein_matching_rows = protein_df[protein_df['Transcript id'] == t_id]
             if not protein_matching_rows.empty:
                 result = pd.concat([result, protein_matching_rows], ignore_index=True)
-            else:
-                st.write(f"No match found for Gene id: {t_id} in protein data\n")
         if not result.empty:
             sorted_result = result.sort_values(by="Transcript id")
             st.dataframe(sorted_result)
@@ -388,8 +385,6 @@ def show_cellular_localisation(tid, is_multi=False):
                 if '#Combined:' in temp_result.columns:
                     temp_result = temp_result.drop(columns=['#Combined:'])
                 result = pd.concat([result, temp_result], ignore_index=True)
-            else:
-                st.write(f"No match found for Gene id: {t_id} in Cellular Protein Localisation data\n")
         if not result.empty:
             result = result.drop_duplicates(subset=['Transcript id'])
             st.dataframe(result)
@@ -416,8 +411,7 @@ def show_go_kegg_data(tid, is_multi=False):
             if not GO_matching_row.empty:
                 temp_result = GO_matching_row[GO_matching_row['Transcript id'] == t_id]
                 result = pd.concat([result, temp_result], ignore_index=True)
-            else:
-                st.write(f"No match found for Gene ID: {t_id} in GO KEGG data\n")
+            # Removed separate 'else' message
         if not result.empty:
             result = result.drop_duplicates(subset=['Transcript id'])
             st.dataframe(result)
@@ -517,8 +511,7 @@ def show_rna_data(tid, is_multi=False):
                     st.success(f"{t_id} mRNA present : Yes ( 1 )\n")
                 else:
                     st.error(f"{t_id} mRNA absent : No ( 0 )\n")
-            else:
-                st.write(f"No match found for Gene id: {t_id} in RNA data\n")
+            # Removed separate 'else' message for each TID
         return True
 
 def show_lncrna_data(tid, is_multi=False):
@@ -542,8 +535,7 @@ def show_lncrna_data(tid, is_multi=False):
                     st.success(f"{t_id} lncRNAs present : Yes ( 1 )\n")
                 else:
                     st.error(f"{t_id} lncRNAs absent : No ( 0 )\n")
-            else:
-                st.write(f"No match found for Gene id: {t_id} in lncRNA data\n")
+            # Removed separate 'else' message for each TID
         return True
 
 def show_mirna_data(tid, is_multi=False):
@@ -561,8 +553,10 @@ def show_mirna_data(tid, is_multi=False):
         miRNA_matching_rows = miRNA_df[miRNA_df['Target_Acc.'].isin(tid)]
         result = pd.DataFrame()
         for t_id in tid:
-            if not miRNA_matching_rows.empty:
-                temp_result = miRNA_matching_rows[miRNA_matching_rows['Target_Acc.'] == t_id]
+            temp_result = miRNA_matching_rows[miRNA_matching_rows['Target_Acc.'] == t_id]
+            if not temp_result.empty:
+                st.dataframe(temp_result)
+                st.write("\n")
                 result = pd.concat([result, temp_result], ignore_index=True)
             else:
                 st.write(f"No match found for Gene id: {t_id} in miRNA data\n")
@@ -600,8 +594,9 @@ def show_orthologs_data(tid, is_multi=False):
                 if not ortho_df.empty:
                     st.write(t_id)
                     st.dataframe(ortho_df)
+
                 else:
-                    st.write(f"No match found for Gene id: {t_id} in Orthologs data")
+                    st.write(f"No match found for Gene id: {t_id} in Orthologs data\n")
         return True
 
 def show_inparalogs_data(tid, is_multi=False):
@@ -624,7 +619,8 @@ def show_inparalogs_data(tid, is_multi=False):
                     st.write(t_id)
                     st.dataframe(para_df)
                 else:
-                    st.write(f"No match found for Gene id: {t_id} in Inparalogs data")
+                    st.write(f"No match found for Gene id: {t_id} in Inparalogs data\n")    
+
         return True
 def transcriptid_info(tid):
     if 'Transcript id' in df.columns and 'lncRNA' in df.columns:
@@ -693,67 +689,65 @@ def transcriptid_info(tid):
 def multi_transcriptid_info(mtid):
     mtid_list = [tid.strip() for tid in mtid.replace(",", " ").split()]
     mtid_list.sort()
-    if 'Transcript id' in df.columns and 'lncRNA' in df.columns:
-        matching_rows = df[df['Transcript id'].isin(mtid_list)]
-        if not matching_rows.empty:
-            con=st.container(border=True)
-            with con:
-                st.subheader("\nSequences data")
-                show_sequence_data(mtid_list, is_multi=True)
 
-                st.subheader("BioChemical Properties")
-                show_biochemical_properties(mtid_list, is_multi=True)
+    # Gather found IDs and missing IDs
+    matching_rows = df[df['Transcript id'].isin(mtid_list)]
+    found_ids = matching_rows['Transcript id'].unique().tolist()
+    not_found_ids = [x for x in mtid_list if x not in found_ids]
+    if not_found_ids:
+        st.error(f"No matches found for Gene IDs: {', '.join(not_found_ids)}")
 
-            con=st.container(border=True)
-            with con:
-                st.subheader("Protein and PPI data")
-                show_protein_ppi_data(mtid_list, is_multi=True)
+    if found_ids:
+        con=st.container(border=True)
+        with con:
+            st.subheader("\nSequences data")
+            show_sequence_data(found_ids, is_multi=True)
 
-            con=st.container(border=True)
-            with con:
-                st.subheader("\nCellular Localisation data")
-                show_cellular_localisation(mtid_list, is_multi=True)
+            st.subheader("BioChemical Properties")
+            show_biochemical_properties(found_ids, is_multi=True)
 
-            con=st.container(border=True)
-            with con:
-                st.subheader("\nGO and KEGG data")
-                show_go_kegg_data(mtid_list, is_multi=True)
+        con=st.container(border=True)
+        with con:
+            st.subheader("Protein and PPI data")
+            show_protein_ppi_data(found_ids, is_multi=True)
 
-            con=st.container(border=True)
-            with con:
-                st.subheader("FPKM Matrix Atlas data")
-                show_fpkm_matrix(mtid_list, is_multi=True)
+        con=st.container(border=True)
+        with con:
+            st.subheader("\nCellular Localisation data")
+            show_cellular_localisation(found_ids, is_multi=True)
 
-            con=st.container(border=True)
-            with con:
-                st.subheader("\nSNP Calling data")
-                show_snp_data(mtid_list, is_multi=True)
+        con=st.container(border=True)
+        with con:
+            st.subheader("\nGO and KEGG data")
+            show_go_kegg_data(found_ids, is_multi=True)
 
-            con=st.container(border=True)
-            with con:
-                st.subheader("RNA data")
-                show_rna_data(mtid_list, is_multi=True)
-                
-                st.subheader("lncRNA data")
-                show_lncrna_data(mtid_list, is_multi=True)
+        con=st.container(border=True)
+        with con:
+            st.subheader("FPKM Matrix Atlas data")
+            show_fpkm_matrix(found_ids, is_multi=True)
 
-                st.subheader("miRNA data")
-                show_mirna_data(mtid_list, is_multi=True)
-                
-            con=st.container(border=True)
-            with con:
-                #Orthologous analysis
-                st.subheader("Orthologs data")
-                show_orthologs_data(mtid_list, is_multi=True)
+        con=st.container(border=True)
+        with con:
+            st.subheader("\nSNP Calling data")
+            show_snp_data(found_ids, is_multi=True)
 
-                st.subheader("\nInparalogs data")
-                show_inparalogs_data(mtid_list, is_multi=True)
+        con=st.container(border=True)
+        with con:
+            st.subheader("RNA data")
+            show_rna_data(found_ids, is_multi=True)
+            st.subheader("lncRNA data")
+            show_lncrna_data(found_ids, is_multi=True)
+            st.subheader("miRNA data")
+            show_mirna_data(found_ids, is_multi=True)
 
-        else:
-            st.error("Gene ID not found\n")
+        con=st.container(border=True)
+        with con:
+            st.subheader("Orthologs data")
+            show_orthologs_data(found_ids, is_multi=True)
+            st.subheader("\nInparalogs data")
+            show_inparalogs_data(found_ids, is_multi=True)
     else:
-        st.error("...Error...\n")
-    return
+        st.error("Gene ID not found\n")
 
 glossary_first={
     'ST':'ST - Seed Tissue',
@@ -893,7 +887,7 @@ def svm_charts():
 
         col1,col2=st.columns(2)
         with col1:
-            container = st.container(border=True)
+            container = st.container(border=True,height=630)
             container.subheader("Training Accuracy")
             container.bar_chart(df["Training Accuracy"],x_label='Tissue/Stages/File',y_label='Accuracy')
 
