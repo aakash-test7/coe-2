@@ -23,7 +23,6 @@ styles = {
     },
     "div": {
         "width": "100%",
-        "max-width": "none",  # Limit the maximum width of the navigation bar content
     },
     "span": {
         "border-radius": "0.5rem",  # Rounded corners for the headings
