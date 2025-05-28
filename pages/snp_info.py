@@ -1,5 +1,5 @@
 import streamlit as st
-from backend import process_locid, process_mlocid,df, show_snp_data
+from backend import process_locid, process_mlocid, df, show_snp_data
 from pages.footer_all import base_footer
 
 def snp_info_page():
@@ -9,8 +9,7 @@ def snp_info_page():
 
     with col1:
         con1 = st.container(border=True)
-        tid = con1.text_input("Enter the Gene ID: ", placeholder="e.g., Ca_00001", key="snp_Tid_input1").strip()
-        mtid = con1.text_input("Enter multiple Gene IDs: ", placeholder="e.g., Ca_00001, Ca_00002", key="snp_mTid_input2").strip()
+        tid = con1.text_input("Enter the Gene ID: ", placeholder="e.g., Ca_00001", key="snp_Tid_input1").strip(); mtid = con1.text_input("Enter multiple Gene IDs: ", placeholder="e.g., Ca_00001, Ca_00002", key="snp_mTid_input2").strip()
         if mtid:
             mtid_list = [item.strip() for item in mtid.replace(",", " ").split()]
             mtid_list = list(set(mtid_list))
@@ -25,66 +24,67 @@ def snp_info_page():
             mlocid_list = list(set(mlocid_list))
             mlocid = ",".join(mlocid_list)
 
-    con1, con2, con3 = st.columns([2, 2, 2])
-    with con2:
+    c1, c2, c3 = st.columns([2, 2, 2])
+    with c2:
         start_button = st.button("Search", use_container_width=True, key="snp_Searchbutton1")
 
     if start_button:
         if tid:
             if 'Transcript id' in df.columns and 'lncRNA' in df.columns:
                 matching_row = df[df['Transcript id'] == tid]
-
                 if not matching_row.empty:
-                    con=st.container(border=True)
+                    con = st.container(border=True)
                     with con:
                         st.subheader("SNP Calling data")
                         show_snp_data(tid)
-
+                else:
+                    st.error(f"No match found for Gene ID: {tid}")
             st.toast("Task completed successfully.")
-            
         elif mtid:
-            mtid_list = [tid.strip() for tid in mtid.replace(",", " ").split()]
+            mtid_list = [x.strip() for x in mtid.replace(",", " ").split()]
             mtid_list.sort()
             if 'Transcript id' in df.columns and 'lncRNA' in df.columns:
                 matching_rows = df[df['Transcript id'].isin(mtid_list)]
+                found_ids = matching_rows['Transcript id'].unique().tolist()
+                not_found_ids = [x for x in mtid_list if x not in found_ids]
                 if not matching_rows.empty:
-                    con=st.container(border=True)
+                    con = st.container(border=True)
                     with con:
                         st.subheader("SNP Calling data")
                         show_snp_data(mtid_list, is_multi=True)
-
+                if not_found_ids:
+                    st.error(f"No matches found for Gene IDs: {', '.join(not_found_ids)}")
             st.toast("Task completed successfully.")
-            
         elif locid:
             tid = process_locid(locid)
             if 'Transcript id' in df.columns and 'lncRNA' in df.columns:
                 matching_row = df[df['Transcript id'] == tid]
-
                 if not matching_row.empty:
-                    con=st.container(border=True)
+                    con = st.container(border=True)
                     with con:
                         st.subheader("SNP Calling data")
                         show_snp_data(tid)
-            
+                else:
+                    st.error(f"No match found for NCBI ID: {locid}")
             st.toast("Task completed successfully.")
-            
         elif mlocid:
             mtid = process_mlocid(mlocid)
-            mtid_list = [tid.strip() for tid in mtid.replace(",", " ").split()]
+            mtid_list = [x.strip() for x in mtid.replace(",", " ").split()]
             mtid_list.sort()
             if 'Transcript id' in df.columns and 'lncRNA' in df.columns:
                 matching_rows = df[df['Transcript id'].isin(mtid_list)]
+                found_ids = matching_rows['Transcript id'].unique().tolist()
+                not_found_ids = [x for x in mtid_list if x not in found_ids]
                 if not matching_rows.empty:
-                    con=st.container(border=True)
+                    con = st.container(border=True)
                     with con:
                         st.subheader("SNP Calling data")
                         show_snp_data(mtid_list, is_multi=True)
-
+                if not_found_ids:
+                    st.error(f"No matches found for NCBI IDs: {', '.join(not_found_ids)}")
             st.toast("Task completed successfully.")
-            
         else:
             st.warning("Need either a Gene ID or NCBI ID to proceed.")
-            
     elif tid == "":
         st.warning("Need Gene ID/ NCBI ID to proceed.")
     else:
