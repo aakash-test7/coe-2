@@ -16,7 +16,7 @@ styles = {
         "height": "4rem",  # Set the total height of the navigation bar
         "display": "flex",  # Use flexbox for layout
         "align-items": "center",  # Vertically center the items
-        "justify-content": "space-around",  # Spread out the headings evenly
+        "justify-content": "space-between"
         "padding": "0 1rem",  # Add padding to the left and right of the navigation bar
         "overflow-x": "auto",  # Enable horizontal scrolling if the content overflows
         "white-space": "nowrap",  # Prevent items from wrapping to a new line
