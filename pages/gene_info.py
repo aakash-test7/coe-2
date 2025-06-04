@@ -111,7 +111,7 @@ def gene_info_page():
             st.toast("Task completed successfully.")
             
     elif tid == "":
-        st.warning("Need Gene ID/ NCBI ID to proceed.")
+        st.warning("Need Gene ID to proceed.")
     else:
         st.write("Press the 'Search' button to begin ...")
         st.write("Follow the instructions or check out tutorials")
