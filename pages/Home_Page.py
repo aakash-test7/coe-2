@@ -19,7 +19,7 @@ def home_page():
     '        background-color: #f4f4f9;'
     '        margin: 0 auto;'
     '        padding: 20px;'
-    '        border-radius: 0 5rem 0 5rem;'
+    '        border-radius: 2rem;'
     '        border: 10px solid #ff774b;'
     '        box-shadow: 0 4px 8px rgba(0,0,0,0.1);'
     '    }'
