@@ -85,11 +85,11 @@ def search_page():
                 """
                 cursor.execute(query_mlocid, (username, mlocid))
             else:
-                st.warning("Need either a Gene ID or NCBI ID to proceed.")
+                st.warning("Need either a Gene ID to proceed.")
             conn.commit()
             conn.close()
     elif tid == "":
-        st.warning("Need Gene ID/ NCBI ID to proceed.")
+        st.warning("Need Gene ID to proceed.")
     else:
         st.write("Press the 'Search' button to begin ...")
         st.write("Follow the instructions or check out tutorials")
