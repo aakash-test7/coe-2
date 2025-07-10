@@ -887,7 +887,7 @@ def svm_charts():
 
         col1,col2=st.columns(2)
         with col1:
-            container = st.container(border=True,height=630)
+            container = st.container(border=True)
             container.subheader("Training Accuracy")
             container.bar_chart(df["Training Accuracy"],x_label='Tissue/Stages/File',y_label='Accuracy')
 
